@@ -36,6 +36,9 @@ func AutoMigrate() error {
 		&models.User{},
 		&models.Product{},
 		&models.Variant{},
+		&models.Role{},
+		&models.Permission{},
+		&models.Product{},
 		&models.SerialNumber{},
 	)
 }

@@ -5,6 +5,7 @@ import (
 
 	"sas-pro/config"
 	"sas-pro/internal/routes"
+	// "sas-pro/internal/services"
 	"sas-pro/pkg/database"
 
 	"github.com/gin-gonic/gin"
@@ -27,6 +28,8 @@ func main() {
 		log.Fatalf("Migration failed: %v", err)
 	}
 
+	// db := database.DB
+	// services.SeedRolesAndPermissions(db)
 
 	// Create Gin router
 	router := gin.Default()
