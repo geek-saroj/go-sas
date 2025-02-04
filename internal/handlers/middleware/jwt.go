@@ -93,6 +93,7 @@ func CheckPermission(permissionName string) gin.HandlerFunc {
 		hasPermission := false
 		for _, role := range user.Roles {
 			for _, perm := range role.Permissions {
+				log.Println("permissionName",permissionName)
 				log.Println("Role:", role.Name, "Permission:", perm.Name)
 				if perm.Name == permissionName {
 					hasPermission = true

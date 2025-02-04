@@ -13,9 +13,9 @@ func Setup(router *gin.Engine) {
 	{
 		auth.POST("/register", handlers.Register)
 		auth.POST("/login", handlers.Login)
-		auth.POST("/permissions", handlers.CreatePermission)         // Create permission
-		auth.POST("/roles", handlers.CreateRole)                     // Create role
-		auth.POST("/roles/:role_id/permissions/:permission_id", handlers.AssignPermissionToRole) // Assign permission to role
+		auth.POST("/permissions", handlers.CreatePermissions)         // Create permission
+		auth.POST("/roles", handlers.CreateRoleAndPermissions)                     // Create role
+		// auth.POST("/roles/:role_id/permissions/:permission_id", handlers.AssignPermissionToRole) // Assign permission to role
 		auth.POST("/users/:user_id/roles/:role_id", handlers.AssignRoleToUser)                   // Assign role to user
 	}
 
@@ -23,7 +23,7 @@ func Setup(router *gin.Engine) {
 	api := router.Group("/api")
 	
 	// api.Use(middleware.JWTAuth())
-	 api.POST("/products", middlewares.CheckPermission("createproduct"), handlers.CreateProduct)
+	 api.POST("/products", middlewares.CheckPermission("createuser"), handlers.CreateProduct)
 	// {
 	// 	products := api.Group("/products")
 	// 	{
