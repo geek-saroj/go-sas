@@ -27,6 +27,7 @@ type ProductCreateRequest struct {
 	Name        string             `json:"name" binding:"required"`
 	Description string             `json:"description"`
 	Variants    []VariantCreateDTO `json:"variants" binding:"required"`
+	Attributes  map[string]interface{} `json:"attributes"` 
 }
 
 type VariantCreateDTO struct {

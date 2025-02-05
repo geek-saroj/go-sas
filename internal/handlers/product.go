@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 	"sas-pro/internal/models"
 	"sas-pro/internal/repositories"
+
+	"github.com/gin-gonic/gin"
 )
 
 func CreateProduct(c *gin.Context) {
