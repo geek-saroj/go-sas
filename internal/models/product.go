@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"mime/multipart"
+
+	"gorm.io/gorm"
+)
 
 type Product struct {
 	gorm.Model
@@ -22,13 +26,16 @@ type SerialNumber struct {
 	Number     string `gorm:"size:255;uniqueIndex;not null"`
 	IsUsed     bool   `gorm:"default:false"`
 }
-
 type ProductCreateRequest struct {
-	Name        string             `json:"name" binding:"required"`
-	Description string             `json:"description"`
-	Variants    []VariantCreateDTO `json:"variants" binding:"required"`
-	Attributes  map[string]interface{} `json:"attributes"` 
+    VariablesFile   *multipart.FileHeader `form:"variables_file"`  // for the file upload
+    Direction       string                `form:"direction,omitempty"`
+    VariableName    string                `form:"variable_name,omitempty"`
+    VariableType    string                `form:"variable_type,omitempty"`
+    DefaultValue    string                `form:"default_value"`
+    UseDefaultValue string                `form:"use_default_value"`
+    LinkSlug        string                `form:"link_slug,omitempty"`
 }
+
 
 type VariantCreateDTO struct {
 	Name    string   `json:"name" binding:"required"`

@@ -25,7 +25,7 @@ func Setup(router *gin.Engine) {
 		products := api.Group("/products")
 		{
 			products.POST("",middlewares.CheckPermission("createuser"), handlers.CreateProduct)
-			products.GET("",middlewares.CheckPermission("createuser"), handlers.GetProducts)
+			// products.GET("",middlewares.CheckPermission("createuser"), handlers.GetProducts)
 		}
 	}
 }
