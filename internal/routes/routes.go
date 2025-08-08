@@ -12,19 +12,22 @@ func Setup(router *gin.Engine) {
 	{
 		auth.POST("/register", handlers.Register)
 		auth.POST("/login", handlers.Login)
-		auth.POST("/permissions", handlers.CreatePermissions)        
-		auth.POST("/roles", handlers.CreateRoleAndPermissions)                  
+		auth.POST("/permissions", handlers.CreatePermissions)
+		auth.POST("/roles", handlers.CreateRoleAndPermissions)
 		// auth.POST("/roles/:role_id/permissions/:permission_id", handlers.AssignPermissionToRole)
-		auth.POST("/users/:user_id/roles/:role_id", handlers.AssignRoleToUser)                  
+		auth.POST("/users/:user_id/roles/:role_id", handlers.AssignRoleToUser)
 	}
 
+	// repo := repositories.NewServiceRepository(database.DB)
+
+	router.Any("/proxy", handlers.ProxyHandler(nil))
 
 	api := router.Group("/api")
-	
+
 	{
 		products := api.Group("/products")
 		{
-			products.POST("",middlewares.CheckPermission("createuser"), handlers.CreateProduct)
+			products.POST("", middlewares.CheckPermission("createuser"), handlers.CreateProduct)
 			// products.GET("",middlewares.CheckPermission("createuser"), handlers.GetProducts)
 		}
 	}

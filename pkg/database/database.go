@@ -40,5 +40,6 @@ func AutoMigrate() error {
 		&models.Permission{},
 		&models.Product{},
 		&models.SerialNumber{},
+		&models.ServiceType{},
 	)
 }
