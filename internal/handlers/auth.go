@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 
 	"sas-pro/config"
 	"sas-pro/internal/models"
 	"sas-pro/internal/repositories"
 	"sas-pro/pkg/utils"
+	"sas-pro/pkg/validator"
 )
 
 func Register(c *gin.Context) {
@@ -18,9 +18,12 @@ func Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	validator := validator.New()
-	if err := validator.Struct(user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "validation failed", "details": err.Error()})
+
+	if errors := validator.ValidateStruct(user); errors != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Validation failed",
+			"details": errors,
+		})
 		return
 	}
 	hashedPassword, err := utils.HashPassword(user.Password)
