@@ -31,6 +31,4 @@ go.work.sum
 # Logs
 *.log
 # Temporary files
-*.tmp
-
-./tmp
+tmp/
