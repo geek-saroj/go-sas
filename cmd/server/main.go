@@ -5,6 +5,8 @@ import (
 
 	"sas-pro/config"
 	"sas-pro/internal/routes"
+	"sas-pro/internal/seeder"
+
 	// "sas-pro/internal/services"
 	"sas-pro/pkg/database"
 
@@ -27,6 +29,14 @@ func main() {
 	if err := database.AutoMigrate(); err != nil {
 		log.Fatalf("Migration failed: %v", err)
 	}
+
+	// db := database.DB
+	serviceTypeSeeder := seeder.NewServiceTypeSeeder(database.DB)
+
+	// Run the seeder to seed the ServiceType data
+	serviceTypeSeeder.Seed()
+
+
 
 	// db := database.DB
 	// services.SeedRolesAndPermissions(db)

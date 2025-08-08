@@ -9,6 +9,7 @@ import (
 	"sas-pro/internal/models"
 	"sas-pro/internal/repositories"
 	"sas-pro/pkg/utils"
+	"sas-pro/pkg/validator"
 )
 
 func Register(c *gin.Context) {
@@ -18,6 +19,13 @@ func Register(c *gin.Context) {
 		return
 	}
 
+	if errors := validator.ValidateStruct(user); errors != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   "Validation failed",
+			"details": errors,
+		})
+		return
+	}
 	hashedPassword, err := utils.HashPassword(user.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to hash password"})
